@@ -3,7 +3,21 @@
 
 const queryParams = new URLSearchParams(document.location.search);
 const redirectUrl = queryParams.get("url");
-document.location = redirectUrl; // Noncompliant
+
+if (redirectUrl) {
+  try {
+    const target = new URL(redirectUrl, document.location.origin);
+    if (target.origin === document.location.origin) {
+      document.location.assign(target.toString());
+    } else {
+      document.location.assign("/");
+    }
+  } catch {
+    document.location.assign("/");
+  }
+} else {
+  document.location.assign("/");
+}
 
 
 // OWASP Top 10 2021 Category A1 - Broken Access Control
