@@ -1,12 +1,12 @@
-// The Element.innerHTML property is used to replace the contents of the
-// root element with user-supplied contents. The innerHTML property does 
-// not sanitize its input, thus allowing for code injection.
+// The Element.textContent property is used to replace the contents of the
+// root element with user-supplied contents as plain text.
+// Unlike innerHTML, textContent does not parse or execute markup.
 
 const rootEl = document.getElementById('root');
 const queryParams = new URLSearchParams(document.location.search);
 const input = queryParams.get("input");
 
-rootEl.innerHTML = input; // Noncompliant
+rootEl.textContent = input ?? ""; // Compliant
 
 // OWASP Top 10 2021 Category A3 - Injection
 // OWASP Top 10 2017 Category A7 - Cross-Site Scripting (XSS)
